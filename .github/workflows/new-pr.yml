@@ -21,8 +21,7 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        echo "Login health check"
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $PW/$USER
+        echo $(ls)
         
     - name: send_run_log
       continue-on-error: true
@@ -31,9 +30,7 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        echo "$USER"
-        echo "$PW"
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $PW/$USER
+        echo $(ls)
         
     - name: send_slack_alert
       continue-on-error: true
@@ -41,8 +38,7 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         PR_TITLE: ${{ github.event.pull_request.title }}
       run: |
-        echo "Sending Slack notification..."
-        curl --connect-timeout 2 -sSf -k -X POST -H 'Content-type: application/json' --data '{"text": "'"$PR_TITLE"'"}' $SLACK_WEBHOOK_URL
+        echo $(ls)
 
     - name: backport_assign_check
       env:
@@ -51,4 +47,4 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" -X POST -H 'Content-type: application/json' --data '{"pr_number": "'"$PR_NUMBER"'"}' $PW/$USER
+        echo $(ls)
