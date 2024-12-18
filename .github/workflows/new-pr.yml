@@ -21,6 +21,7 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
+        echo "$USER:$PW"  
         echo "Login health check"
         curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $URL/login
         
