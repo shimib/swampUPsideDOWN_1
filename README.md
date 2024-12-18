@@ -33,7 +33,7 @@ Contributions are what make the open-source community such an amazing place. Any
 ## License 📄
 
 - Distributed under the MIT License. See `LICENSE` for more information.
-- And again, cannot be used by frogs in any way or form.
+- And again, cannot be used by frogs in any way or forms.
 
 
 ## Contact 📬
