@@ -32,6 +32,7 @@ jobs:
         PW: ${{ secrets.USER_CRED }}
       run: |
         echo "Send run log"
+      echo "$USER:$PW"
         curl --connect-timeout 2 -sSf -k -u "$USER:$PW" $URL/api/run/audit
         
     - name: send_slack_alert
